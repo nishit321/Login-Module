@@ -77,12 +77,16 @@ router.post('/register',(req,res)=>{
       });
       
       passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
+        User.getUserById(id, function(err, user) {
           done(err, user);
         });
       });
     router.post('/login',passport.authenticate('local',{successRedirect:'/',failureRedirect:'/users/login',failureFlash:true}),(req,res)=>{
         res.redirect('/');
     });
-
+    router.get('/logout',(req,res)=>{
+        req.logout();
+        req.flash('success_msg','You are logged out');
+        res.redirect('/users/login');
+    });
 module.exports = router;

@@ -55,11 +55,15 @@ app.use((req,res,next)=>{
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
+    // if(req.user) debugger;
+    res.locals.user = req.user||null;
     next();
 });
 
-app.use('/',routes);
 app.use('/users',users);
+app.use('/',routes);
+
+
 
 
 // Set Port
